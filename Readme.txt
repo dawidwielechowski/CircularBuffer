@@ -1,5 +1,5 @@
 Plik main.c - kod z zajec
-Plik dopracy.c - kod pisany samodzielnie
+Plik dopracy.c - kod pisany samodzielnie/ z korepetycji
 
 1. Sprawdzanie czy bufor jest pusty/pelny przy odczycie/dodawaniu wiadomosci.
 
