@@ -2,7 +2,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #define MSG_CMD_SIZE 10
-#define BUFFER_SIZE 10
+#define BUFFER_SIZE 3
 
 //   wiadomosc
 typedef struct
@@ -39,22 +39,28 @@ bool isBufferFull(CircullarBuffer *buffer){
 }
 
 int addMessage(CircullarBuffer *buffer, Message msg){
-    buffer->count++;
-    buffer->messages[buffer->tail]=msg;
-    buffer->tail=(buffer->tail+1)%BUFFER_SIZE;
+    if(!isBufferFull(buffer))
+    {
+        buffer->messages[buffer->tail]=msg;
+        buffer->tail=(buffer->tail+1)%BUFFER_SIZE;
+        buffer->count++;
+    }
     return 0;
 }
 
 int readMessage(CircullarBuffer *buffer, Message *msg){
-    *msg=buffer->messages[buffer->head];
-    buffer->head=(buffer->head+1)%BUFFER_SIZE;
-    buffer->count--;
+    if(!isBufferEmpty(buffer)){
+        *msg=buffer->messages[buffer->head];
+        buffer->head=(buffer->head+1)%BUFFER_SIZE;
+        buffer->count--;
+    }
     return 0;
 }
 
 int main(){
     CircullarBuffer Buffer;
     InitializeBuffer(&Buffer);
+
 
 //dodanie
     Message snd;
